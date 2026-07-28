@@ -1,0 +1,82 @@
+<mxfile host="65bd71144e">
+    <diagram id="dCQO8UeUgPzQK1vinlyg" name="Page-1">
+        <mxGraphModel dx="1707" dy="1046" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Enemy hand (5)" style="text;html=1;fontSize=11;fontStyle=2;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="-130" y="-190" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9d9d9;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="-220" width="60" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9d9d9;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="102" y="-220" width="60" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9d9d9;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="174" y="-220" width="56" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9d9d9;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="246" y="-220" width="60" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d9d9d9;strokeColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="318" y="-220" width="60" height="84" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Mana 1 / 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="-80" y="-74" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Enemy Hero&#xa;HP 30" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="145" y="-90" width="120" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Deck&#xa;25" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="-100" width="70" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#999999;verticalAlign=top;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="-240" y="60" width="889" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="fillColor=#cccccc;strokeColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="-340" y="202" width="1089" height="2" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#999999;verticalAlign=top;fontStyle=2;" parent="1" vertex="1">
+                    <mxGeometry x="-240" y="220" width="889" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Mana 1 / 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="-80" y="436" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Your Hero&#xa;HP 30" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="145" y="420" width="120" height="64" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Deck&#xa;25" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="410" width="70" height="94" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="Your hand (5)" style="text;html=1;fontSize=11;fontStyle=2;align=left;" parent="1" vertex="1">
+                    <mxGeometry x="-130" y="570" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="Card 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="155" y="230" width="70" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="Card 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="85" y="530" width="70" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="Card 3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="530" width="70" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="Card 4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="255" y="530" width="70" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="Card 5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="530" width="70" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="📝 Turn 1 — Play Card&lt;br&gt;&lt;br&gt;State:&lt;br&gt;• Both heroes: 30 HP&lt;br&gt;• Both decks: 25 cards&lt;br&gt;• Board Player - 1 / 7&lt;div&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;• Board Opponent - 0 / 7&lt;/span&gt;&lt;/div&gt;&lt;div&gt;• Mana: 1 / 1&lt;br&gt;&lt;br&gt;What happens:&lt;br&gt;1. Player picks a card&amp;nbsp;&lt;br&gt;2. Player places the card on their side of the board&lt;br&gt;3. By the end of this action, player has one less card in hand.&amp;nbsp;&lt;/div&gt;&lt;div&gt;4. Player ends their turn&lt;br&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;spacingRight=10;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="-730" y="-240" width="330" height="430" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="Turn 1 — Player puts the card on the board&amp;nbsp;" style="text;html=1;fontSize=16;fontStyle=1;align=left;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="-240" y="-270" width="700" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="-" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry y="530" width="70" height="100" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
