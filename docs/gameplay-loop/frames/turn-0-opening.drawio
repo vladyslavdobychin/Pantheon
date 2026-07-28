@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="frame-turn0" name="Turn 0 — Opening">
-        <mxGraphModel dx="2491" dy="1394" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
+        <mxGraphModel dx="1007" dy="1046" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="826" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -70,7 +70,7 @@
                 <mxCell id="ph5" value="Card 5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#333333;" parent="1" vertex="1">
                     <mxGeometry x="720" y="710" width="70" height="100" as="geometry"/>
                 </mxCell>
-                <mxCell id="narration" value="📝 Turn 0 — Opening&#xa;&#xa;State:&#xa;• Both heroes: 30 HP&#xa;• Both decks: 25 cards&#xa;• Boards empty (0 / 7)&#xa;• Mana: 1 / 1&#xa;&#xa;What happens:&#xa;1. Shuffle both 30-card decks.&#xa;2. Each player draws 5 cards.&#xa;3. Mulligan: optionally swap cards.&#xa;4. Active player starts Turn 1.&#xa;&#xa;Next → Turn 1: active player plays first creature." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;spacingRight=10;fontSize=12;" vertex="1" parent="1">
+                <mxCell id="narration" value="📝 Turn 0 — Opening&#xa;&#xa;State:&#xa;• Both heroes: 30 HP&#xa;• Both decks: 25 cards&#xa;• Boards empty (0 / 7)&#xa;• Mana: 1 / 1&#xa;&#xa;What happens:&#xa;1. Shuffle both 30-card decks.&#xa;2. Each player draws 5 cards.&#xa;3. Mulligan: optionally swap cards.&#xa;4. Active player starts Turn 1.&#xa;&#xa;Next → Turn 1: active player plays first creature." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=10;spacingTop=8;spacingRight=10;fontSize=12;" parent="1" vertex="1">
                     <mxGeometry x="-320" y="-120" width="330" height="430" as="geometry"/>
                 </mxCell>
             </root>
