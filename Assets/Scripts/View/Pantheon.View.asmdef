@@ -1,0 +1,16 @@
+{
+    "name": "Pantheon.View",
+    "rootNamespace": "",
+    "references": [
+        "GUID:dfcea8ddb9fd249cfa04eca0460ecf14"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

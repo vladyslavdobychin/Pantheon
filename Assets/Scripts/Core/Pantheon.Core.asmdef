@@ -1,0 +1,9 @@
+{
+	"name": "Pantheon.Core",
+	"rootNamespace": "Pantheon.Core",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "noEngineReferences": true,
+    "autoReferenced": true
+}
