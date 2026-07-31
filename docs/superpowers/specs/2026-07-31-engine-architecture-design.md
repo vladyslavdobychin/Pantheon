@@ -11,7 +11,8 @@
 
 | Decision | Choice | Why |
 |---|---|---|
-| Engine (Unity project) | Unity 6 LTS, **2D** template, created via **Unity Hub** | Card game is 2D. Hub scaffolds the project; the editor does not "convert" a folder. |
+| Engine (Unity project) | Unity 6 LTS, created via **Unity Hub** (template non-binding) | Hub scaffolds the project; the editor does not "convert" a folder. Unity is one 3D engine — "2D" is only a preset (orthographic camera + sprite packages), reversible any time. |
+| Rendered look | **Deferred to View time** (leaning 2.5D / URP + perspective) | The Core is renderer-agnostic, so this touches nothing in the engine. HS-style "2.5D" = flat card art on quads, tilted in 3D under a perspective camera — reachable from any template. Decide when the View is built (after Slice 5). |
 | Where to start | **Headless engine first**, visuals last | Directly honors the foundation doc's rule: *combat core knows nothing about presentation.* Logic-first also makes TDD pleasant. |
 | Engine vs. Unity split | **One Unity project**, Core walled off with an **assembly definition (asmdef)** | Compiler-enforced isolation without the plumbing of a second project. |
 | Working method | **TDD** — write tests first, per slice | Core is pure logic (no Unity), so tests are fast, deterministic, no scene. The risky part (rules) becomes the fully-tested part. |
