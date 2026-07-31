@@ -155,4 +155,4 @@ Why: a new card = a data row reusing existing effects → **no new code**. Non-p
 
 ## Next
 
-Confirm the v1 walking-skeleton scope and the trivial v1 AI, then move to the implementation plan (writing-plans skill).
+v1 walking-skeleton scope and trivial AI confirmed. Technical build design lives in [`2026-07-31-engine-architecture-design.md`](2026-07-31-engine-architecture-design.md) (headless Core, asmdef isolation, TDD, slices 0–5). Next: turn it into an implementation plan (writing-plans skill).
