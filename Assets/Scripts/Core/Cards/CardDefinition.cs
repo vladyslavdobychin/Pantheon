@@ -14,12 +14,15 @@ namespace Pantheon.Core.Cards
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException("Card name must not be empty.", nameof(name));
+
             if (type is null)
                 throw new ArgumentNullException(nameof(type));
+
             if (attack < 0)
                 throw new ArgumentOutOfRangeException(nameof(attack), attack, "Attack cannot be negative.");
-            if (health < 1)
-                throw new ArgumentOutOfRangeException(nameof(health), health, "Health must be at least 1.");
+
+            if (health < 0)
+                throw new ArgumentOutOfRangeException(nameof(health), health, "Health cannot be negative");
 
             Name = name;
             Price = price;

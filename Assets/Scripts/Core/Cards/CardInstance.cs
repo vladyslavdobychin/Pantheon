@@ -16,12 +16,11 @@ namespace Pantheon.Core.Cards
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             Id = id;
 
-            CurrentHealth = definition.Health;   // starts at full
-            IsSummoningSick = true;              // cannot attack the turn it enters play
+            CurrentHealth = definition.Health;
+            IsSummoningSick = true;
             HasAttackedThisTurn = false;
         }
 
-        // Stats that never change are read straight from the blueprint, not copied.
         public int Attack => Definition.Attack;
         public int MaxHealth => Definition.Health;
 
@@ -38,7 +37,6 @@ namespace Pantheon.Core.Cards
 
         public void MarkAttacked() => HasAttackedThisTurn = true;
 
-        // The engine calls this at the start of the controlling player's turn.
         public void OnTurnStart()
         {
             IsSummoningSick = false;
