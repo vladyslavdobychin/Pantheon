@@ -24,6 +24,54 @@
 
 ---
 
+## The call map (read this whenever a piece feels disconnected)
+
+Slices build leaves first, so it is easy to lose sight of who calls what. This is the entire v1 engine. Nothing else exists.
+
+```
+Test (now) / View (later)
+   │
+   └─> RunToCompletion(state, agentA, agentB)          [Slice 5]
+          while state.WinnerIndex == null:
+              moves = GameEngine.GetLegalMoves(state)
+              move  = agents[state.ActivePlayerIndex].ChooseMove(state, moves)
+              GameEngine.ApplyMove(state, move)
+```
+
+```
+StartTurn(state):                                       [Slice 2]
+    player.MaxMana = min(MaxMana + 1, 10);  player.CurrentMana = MaxMana
+    Draw(player)                              -> Deck.Draw(), Hand.Add(), fatigue
+    foreach minion in player.Board:
+        minion.BeginTurn()                    <-- calls CardInstance.BeginTurn
+    CheckWinner(state)
+
+GetLegalMoves(state):                                   [Slices 3-4]
+    foreach card in player.Hand:
+        if card.Price.Amount <= player.CurrentMana && player.Board.Count < 7:
+            yield PlayCardMove(handIndex)
+    foreach minion in player.Board:
+        if minion.CanAttack:                  <-- calls CardInstance.CanAttack
+            yield AttackMove(minion.Id, eachEnemyMinionId)
+            yield AttackMove(minion.Id, ENEMY_HERO)
+    yield EndTurnMove()
+
+ApplyMove(state, move):                                 [Slices 2-4]
+    PlayCard -> spend mana, hand.Remove(i), board.Add(new CardInstance(nextId++, def))
+    Attack   -> target.TakeDamage(attacker.Attack)      // mutual damage
+                attacker.TakeDamage(target.Attack)
+                attacker.MarkAttacked()
+                board.RemoveAll(m => m.IsDead)          <-- calls CardInstance.IsDead
+                CheckWinner(state)
+    EndTurn  -> ActivePlayerIndex = 1 - ActivePlayerIndex; StartTurn(state)
+```
+
+**Method-naming rule this exposed:** name a method for what it does to the object, not for when it is called. `BeginTurn()`, not `OnTurnStart()` — an `On*` prefix implies an event subscription, and there is none here. `TakeDamage` and `MarkAttacked` already follow the rule.
+
+**Order of work:** outside-in tests, inside-out implementation. The test names the caller before the callee exists, so pieces never arrive unexplained; the implementation still builds upward, so the code always compiles.
+
+---
+
 ## Slice 0 — Toolchain skeleton (BOILERPLATE — copy-paste / clicks)
 
 **Deliverable:** empty project that compiles, with three assemblies wired, and one green throwaway test that proves Tests can see Core.

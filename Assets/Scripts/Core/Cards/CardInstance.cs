@@ -37,7 +37,7 @@ namespace Pantheon.Core.Cards
 
         public void MarkAttacked() => HasAttackedThisTurn = true;
 
-        public void OnTurnStart()
+        public void BeginTurn()
         {
             IsSummoningSick = false;
             HasAttackedThisTurn = false;
