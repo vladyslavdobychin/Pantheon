@@ -1,0 +1,305 @@
+<title>Pantheon Engine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#E8EBEE; --surface:#FBFCFD; --surface2:#EFF2F6;
+    --ink:#191D24; --muted:#59636F; --line:#C9D1DA;
+    --wire:#B07D22; --wire-ink:#835B12;
+    --seam:#2C6E8F; --seam-ink:#215875;
+    --shadow:0 1px 2px rgba(20,30,40,.05), 0 8px 24px rgba(20,30,40,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12151A; --surface:#1B1F26; --surface2:#232833;
+      --ink:#E6EAEF; --muted:#98A2B0; --line:#2C333D;
+      --wire:#D3A24E; --wire-ink:#E4BB6A;
+      --seam:#5AA6CA; --seam-ink:#84C1E0;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12151A; --surface:#1B1F26; --surface2:#232833;
+    --ink:#E6EAEF; --muted:#98A2B0; --line:#2C333D;
+    --wire:#D3A24E; --wire-ink:#E4BB6A;
+    --seam:#5AA6CA; --seam-ink:#84C1E0;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:48px 24px 72px}
+
+  /* ---- header ---- */
+  header{border-bottom:1px solid var(--line); padding-bottom:24px; margin-bottom:36px}
+  .kicker{
+    font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.22em;
+    text-transform:uppercase; color:var(--seam-ink); margin:0 0 10px;
+  }
+  h1{
+    font-family:"Spectral", Georgia, serif; font-weight:700;
+    font-size:clamp(2.2rem,5vw,3.4rem); line-height:1.02; letter-spacing:.01em;
+    margin:0; text-wrap:balance;
+  }
+  .lede{max-width:60ch; color:var(--muted); font-size:1.05rem; margin:14px 0 0}
+  .meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:20px}
+  .chip{
+    font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--muted);
+    background:var(--surface2); border:1px solid var(--line);
+    padding:4px 10px; border-radius:999px;
+  }
+
+  h2{
+    font-family:"Spectral", Georgia, serif; font-weight:600; font-size:1.5rem;
+    margin:52px 0 6px; letter-spacing:.01em;
+  }
+  .sub{color:var(--muted); margin:0 0 22px; max-width:62ch}
+
+  /* ---- figure ---- */
+  figure{margin:0}
+  .board{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    box-shadow:var(--shadow); padding:14px; overflow-x:auto;
+  }
+  .board svg{display:block; width:100%; height:auto; min-width:720px; color:var(--muted)}
+  figcaption{color:var(--muted); font-size:.9rem; margin-top:14px; text-align:center}
+
+  /* svg element classes */
+  .box{fill:var(--surface); stroke:var(--line); stroke-width:1.5}
+  .grp{fill:none; stroke:var(--seam); stroke-width:1.3; stroke-dasharray:5 5; opacity:.75}
+  .chipbox{fill:var(--surface2); stroke:var(--line); stroke-width:1}
+  .t-title{fill:var(--ink); font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:15px}
+  .t-sub{fill:var(--muted); font-family:"IBM Plex Sans",sans-serif; font-size:11px}
+  .t-code{fill:var(--muted); font-family:"IBM Plex Mono",monospace; font-size:11px}
+  .t-seam{fill:var(--seam-ink); font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500}
+  .t-seamtitle{fill:var(--seam-ink); font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:14px}
+  .flow{stroke:var(--muted); stroke-width:1.7; fill:none}
+  .flow.dash{stroke-dasharray:6 5}
+  .wire{stroke:var(--wire); stroke-width:2.2; fill:none}
+  .ah-grey{fill:var(--muted)}
+  .ah-gold{fill:var(--wire)}
+  .badge{fill:var(--surface2); stroke:var(--line); stroke-width:1.3}
+  .badge.gold{stroke:var(--wire)}
+  .t-badge{fill:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:500; text-anchor:middle}
+  .t-badge.gold{fill:var(--wire-ink)}
+
+  /* ---- steps legend ---- */
+  .steps{
+    list-style:none; margin:22px 0 0; padding:0;
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2px 30px;
+  }
+  .steps li{display:flex; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); align-items:baseline}
+  .num{
+    flex:none; width:22px; height:22px; border-radius:50%; display:grid; place-items:center;
+    font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink);
+    background:var(--surface2); border:1px solid var(--line); align-self:center;
+  }
+  .num.gold{border-color:var(--wire); color:var(--wire-ink)}
+  .steps code{font-family:"IBM Plex Mono",monospace; font-size:.82em; color:var(--seam-ink)}
+  .enc{display:flex; flex-wrap:wrap; gap:18px 26px; margin-top:20px; font-size:.86rem; color:var(--muted)}
+  .enc span{display:inline-flex; align-items:center; gap:9px}
+  .swatch{width:26px; height:0; border-top-width:2.4px; border-top-style:solid}
+  .sw-wire{border-color:var(--wire)} .sw-call{border-color:var(--muted)}
+  .sw-async{border-color:var(--muted); border-top-style:dashed}
+
+  /* ---- decisions ---- */
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:8px}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:8px;
+  }
+  .card .tag{
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--seam-ink);
+  }
+  .card .pick{font-family:"Spectral",Georgia,serif; font-size:1.22rem; font-weight:600; line-height:1.15}
+  .card p{margin:0; color:var(--muted); font-size:.92rem}
+  .card code{font-family:"IBM Plex Mono",monospace; font-size:.85em; color:var(--ink)}
+
+  .open{
+    margin-top:22px; border:1px dashed var(--seam); border-radius:14px; padding:20px 22px;
+    background:color-mix(in srgb, var(--seam) 7%, var(--surface));
+  }
+  .open .tag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--seam-ink)}
+  .open h3{margin:6px 0 4px; font-family:"Spectral",serif; font-weight:600; font-size:1.2rem}
+  .open p{margin:0; color:var(--muted); font-size:.94rem; max-width:64ch}
+
+  footer{margin-top:48px; padding-top:20px; border-top:1px solid var(--line); color:var(--muted); font-size:.82rem}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="kicker">Pantheon · combat engine</p>
+    <h1>The v1 headless architecture</h1>
+    <p class="lede">One turn of the game, from a player's intent to the animations on screen — and the five decisions that fix the shape of the engine. A draft for the team to argue with.</p>
+    <div class="meta">
+      <span class="chip">C# · .NET</span>
+      <span class="chip">Pantheon.Core (headless)</span>
+      <span class="chip">draft · 2026-08-27</span>
+      <span class="chip">next: server topology</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>How one turn flows</h2>
+    <p class="sub">The <strong>Runner</strong> drives a loop. It asks the current player's <strong>Agent</strong> for a <strong>Move</strong>, hands that to the pure <strong>Core</strong>, which mutates <strong>GameState</strong> and returns a list of <strong>fat events</strong> the <strong>View</strong> just plays. The two gold payloads are already your network protocol.</p>
+
+    <figure>
+      <div class="board">
+        <svg viewBox="0 0 1130 600" role="img" aria-label="Data flow for one turn: the Runner awaits a Move from the current player's Agent, calls Core.ApplyMove, which mutates GameState and returns a list of fat GameEvents that the Unity View replays; player input closes the loop back to the Agent.">
+          <defs>
+            <marker id="ah-grey" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah-grey"/></marker>
+            <marker id="ah-gold" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah-gold"/></marker>
+          </defs>
+
+          <!-- headless boundary -->
+          <rect class="grp" x="662" y="70" width="452" height="292" rx="14"/>
+          <text class="t-seam" x="676" y="90">Pantheon.Core — pure rules, no Unity</text>
+
+          <!-- Agent seam box -->
+          <rect class="box" x="40" y="110" width="230" height="205" rx="12"/>
+          <text class="t-seamtitle" x="58" y="138">IAgent</text>
+          <text class="t-code" x="58" y="157">DecideAsync(view) → Task&lt;Move&gt;</text>
+          <rect class="chipbox" x="56" y="172" width="198" height="26" rx="6"/>
+          <text class="t-code" x="66" y="189" style="fill:var(--ink)">LocalPlayerAgent</text>
+          <rect class="chipbox" x="56" y="204" width="198" height="26" rx="6"/>
+          <text class="t-code" x="66" y="221" style="fill:var(--ink)">AiAgent</text>
+          <text class="t-code" x="150" y="221">· clones &amp; searches</text>
+          <rect class="chipbox" x="56" y="236" width="198" height="26" rx="6"/>
+          <text class="t-code" x="66" y="253" style="fill:var(--ink)">NetworkAgent</text>
+          <text class="t-seam" x="58" y="292">one seam → PvE · PvP · bots</text>
+
+          <!-- Runner -->
+          <rect class="box" x="400" y="150" width="180" height="130" rx="12"/>
+          <text class="t-title" x="418" y="180">Runner</text>
+          <text class="t-sub" x="418" y="199">the game loop</text>
+          <text class="t-code" x="418" y="223">await a Move</text>
+          <text class="t-code" x="418" y="242">call ApplyMove</text>
+          <text class="t-code" x="418" y="261">dispatch events</text>
+
+          <!-- Core -->
+          <rect class="box" x="680" y="150" width="180" height="130" rx="12"/>
+          <text class="t-title" x="698" y="180">Core</text>
+          <text class="t-sub" x="698" y="199">pure step function</text>
+          <text class="t-code" x="698" y="223">StartGame()</text>
+          <text class="t-code" x="698" y="242">GetValidMoves()</text>
+          <text class="t-code" x="698" y="261">ApplyMove()</text>
+
+          <!-- GameState -->
+          <rect class="box" x="940" y="95" width="165" height="250" rx="12"/>
+          <text class="t-title" x="958" y="124">GameState</text>
+          <text class="t-sub" x="958" y="143">mutable · cloneable</text>
+          <text class="t-code" x="958" y="169">entities</text>
+          <text class="t-code" x="958" y="188">board · hands</text>
+          <text class="t-code" x="958" y="207">decks</text>
+          <text class="t-code" x="958" y="226">seeded PRNG</text>
+          <text class="t-code" x="958" y="245">event log</text>
+          <text class="t-code" x="958" y="264" style="fill:var(--ink)">Clone()</text>
+          <text class="t-seam" x="958" y="292">= pure(seed, moves)</text>
+
+          <!-- View -->
+          <rect class="box" x="400" y="440" width="180" height="110" rx="12"/>
+          <text class="t-title" x="418" y="470">View · Unity</text>
+          <text class="t-sub" x="418" y="489">dumb replayer</text>
+          <text class="t-code" x="418" y="513">plays fat events</text>
+
+          <!-- arrows -->
+          <!-- 1 await (runner->agent) -->
+          <line class="flow dash" x1="400" y1="196" x2="284" y2="196" marker-end="url(#ah-grey)"/>
+          <circle class="badge" cx="342" cy="196" r="12"/>
+          <text class="t-badge" x="342" y="200">1</text>
+          <!-- 2 move (agent->runner) GOLD -->
+          <line class="wire" x1="270" y1="240" x2="398" y2="240" marker-end="url(#ah-gold)"/>
+          <circle class="badge gold" cx="334" cy="240" r="12"/>
+          <text class="t-badge gold" x="334" y="244">2</text>
+          <!-- 3 ApplyMove (runner->core) -->
+          <line class="flow" x1="580" y1="205" x2="678" y2="205" marker-end="url(#ah-grey)"/>
+          <circle class="badge" cx="629" cy="205" r="12"/>
+          <text class="t-badge" x="629" y="209">3</text>
+          <!-- 4 mutate (core->gamestate) -->
+          <line class="flow" x1="860" y1="205" x2="938" y2="205" marker-end="url(#ah-grey)"/>
+          <circle class="badge" cx="899" cy="205" r="12"/>
+          <text class="t-badge" x="899" y="209">4</text>
+          <!-- 5 events (core->runner) GOLD -->
+          <line class="wire" x1="680" y1="250" x2="582" y2="250" marker-end="url(#ah-gold)"/>
+          <circle class="badge gold" cx="631" cy="250" r="12"/>
+          <text class="t-badge gold" x="631" y="254">5</text>
+          <!-- 6 play (runner->view) GOLD -->
+          <line class="wire" x1="490" y1="280" x2="490" y2="438" marker-end="url(#ah-gold)"/>
+          <circle class="badge gold" cx="490" cy="359" r="12"/>
+          <text class="t-badge gold" x="490" y="363">6</text>
+          <!-- 7 input (view->agent) -->
+          <path class="flow dash" d="M400,486 C 300,528 172,506 157,319" marker-end="url(#ah-grey)"/>
+          <circle class="badge" cx="250" cy="500" r="12"/>
+          <text class="t-badge" x="250" y="504">7</text>
+        </svg>
+      </div>
+      <figcaption>One turn. Gold = the wire protocol (a <code>Move</code> up, a list of <code>GameEvent</code> down); dashed = the loop suspends there via <code>await</code>.</figcaption>
+    </figure>
+
+    <ol class="steps">
+      <li><span class="num">1</span><span>Runner awaits the current player's agent — <code>await agent.DecideAsync(view)</code>. The loop suspends; Unity stays responsive.</span></li>
+      <li><span class="num gold">2</span><span>Agent returns a <code>Move</code> — the player's intent. <strong>This is your network request.</strong></span></li>
+      <li><span class="num">3</span><span>Runner calls the pure Core — <code>Core.ApplyMove(state, move)</code>, crossing into the headless boundary.</span></li>
+      <li><span class="num">4</span><span>Core mutates <code>GameState</code> in place and appends fat events to the log.</span></li>
+      <li><span class="num gold">5</span><span>Core returns a <code>List&lt;GameEvent&gt;</code> — the result. <strong>This is your network response.</strong></span></li>
+      <li><span class="num gold">6</span><span>Runner plays the events to the View, which just animates and shows numbers — no rules.</span></li>
+      <li><span class="num">7</span><span>The player clicks; input becomes the next agent's Move, and the loop turns again.</span></li>
+    </ol>
+
+    <div class="enc">
+      <span><span class="swatch sw-wire"></span> wire protocol — Move &amp; GameEvent</span>
+      <span><span class="swatch sw-call"></span> a call</span>
+      <span><span class="swatch sw-async"></span> async — the loop waits here</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>The five decisions this rests on</h2>
+    <p class="sub">Each closed a real fork. Together they make the diagram above the only shape that's consistent.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">State model</span>
+        <span class="pick">Mutable + Clone()</span>
+        <p>Entities update in place. To try a move the AI clones the whole state, applies, scores, discards. Simpler than immutability, and the shape SabberStone ships.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Randomness</span>
+        <span class="pick">One seeded PRNG</span>
+        <p>Lives inside <code>GameState</code>; every roll goes through it. The game becomes <code>pure(seed, moves)</code> — replay, deterministic tests, no client-side re-rolls.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Events</span>
+        <span class="pick">Fat semantic events</span>
+        <p>A semantic name (<code>MinionAttacked</code>) carrying its deltas (<code>3→1</code>). The view needs zero rules; netcode still gets the exact numbers.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Core shape</span>
+        <span class="pick">Sync step function</span>
+        <p><code>StartGame</code> / <code>GetValidMoves</code> / <code>ApplyMove</code>. Pure, Unity-free, trivially testable. State is passed in — like a stateless service.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Input seam</span>
+        <span class="pick">Async Runner + IAgent</span>
+        <p>The loop <code>await</code>s a <code>Task&lt;Move&gt;</code>. Local, AI, and network players are just implementations — swap the agent, not the loop. This is why PvE and PvP are one engine.</p>
+      </div>
+    </div>
+
+    <div class="open">
+      <span class="tag">Still open · up next</span>
+      <h3>Server topology</h3>
+      <p>Where the authoritative Core runs for online PvP — and why it does <em>not</em> mean a second copy of the rules. The answer just extends this same picture: the server is a Runner + Core, and each client swaps its opponent for a <code>NetworkAgent</code>. That's the next round.</p>
+    </div>
+  </section>
+
+  <footer>
+    Pantheon architecture draft · generated for team discussion · decisions are provisional and meant to be challenged.
+  </footer>
+</div>
