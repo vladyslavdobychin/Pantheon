@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace Pantheon.Core
 {
@@ -21,38 +22,26 @@ namespace Pantheon.Core
 
             stateFactory = factory;
             this.agents = agents;
-
-            gameState = stateFactory.Create(agents);
         }
 
-        public IGameState Run()
+        public IGameState Initialise()
+        {
+            return gameState = stateFactory.Create(agents);
+        }
+
+        public async Task<IGameState> RunAsync()
         {
             while (!gameState.HasWinner())
             {
-                /*
-                The engine is running in loops, and this loop should also be agnostic to at which state the game currently is.
-                Meaning we should be able to suspend the loop for whater the reason and continue it without breaking the overall
-                state of the game
+                var currentAgent = agents[gameState.GetCurrentAgentIndex()];
+                var move = await currentAgent.DecideAsync(gameState);
+                var events = gameState.ApplyMove(move);
 
-                1. Game state was initialised at the constructor, so I think we can just return it at the start of the loop for
-                view to render
-                2. We somehow need to await the response from the agents and when both promises are completed - adanvce the loop?
-                */
+                // TODO: Return events to view
             }
-
-            /*
-            The block above should be running on repeat,
-            when we have a winner it stops so we need to do some sort of a final return? Final resolved state?
-            */
 
             return gameState;
         }
     }
 
-    /*
-    NOTES:
-    1. Should I add constructor() that receives both agents and game state factory to avoid shadow dependencies?
-    I still have an open question about *what* initializes GameRunner in this case, what passes those parameters.
-    2.
-    */
 }

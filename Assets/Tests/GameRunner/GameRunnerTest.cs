@@ -33,5 +33,14 @@ namespace Pantheon.CoreTests
                     )
                 );
         }
+
+        [Test]
+        public void Initialise_ReturnsValidState()
+        {
+            var gameRunner = new GameRunner(new GameStateFactory(),  new IAgent[] { new Agent(), new Agent() });
+            var gameState = gameRunner.Initialise();
+
+            Assert.IsInstanceOf<IGameState>(gameState);
+        }
     }
 }
