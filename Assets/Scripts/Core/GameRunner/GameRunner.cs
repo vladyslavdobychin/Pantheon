@@ -8,8 +8,10 @@ namespace Pantheon.Core
         private GameStateFactory stateFactory;
         private IGameState gameState;
         private IAgent[] agents;
+        private IDeck[] decks;
+        private int seed;
 
-        public GameRunner(GameStateFactory factory, IAgent[] agents)
+        public GameRunner(GameStateFactory factory, IAgent[] agents, IDeck[] decks, int seed)
         {
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
@@ -22,11 +24,13 @@ namespace Pantheon.Core
 
             stateFactory = factory;
             this.agents = agents;
+            this.decks = decks;
+            this.seed = seed;
         }
 
         public IGameState Initialise()
         {
-            return gameState = stateFactory.Create(agents);
+            return gameState = stateFactory.Create(agents, decks, seed);
         }
 
         public async Task<IGameState> RunAsync()

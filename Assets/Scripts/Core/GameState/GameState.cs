@@ -6,11 +6,22 @@ namespace Pantheon.Core
     public class GameState : IGameState
     {
         private readonly IAgent[] agents;
+        private readonly IDeck[] decks;
+        private readonly Random random;
+        private readonly int currentAgentIndex;
 
-        public GameState(IAgent[] agents)
+        public GameState(IAgent[] agents, IDeck[] decks, int seed)
         {
             this.agents = agents;
-            // Initialize board, decks, players etc.
+            this.decks = decks;
+            this.random = new Random(seed);
+            this.currentAgentIndex = this.random.Next(2);
+
+            /*
+            [X] Initialize player indexes
+            [X] Initialize decks
+            [ ] Initialize board
+            */
         }
 
         public bool HasWinner()
@@ -21,7 +32,7 @@ namespace Pantheon.Core
 
         public int GetCurrentAgentIndex()
         {
-            return 0;
+            return currentAgentIndex;
         }
 
         public List<GameEvent> ApplyMove(IMove move)
