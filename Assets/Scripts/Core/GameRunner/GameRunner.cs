@@ -22,6 +22,12 @@ namespace Pantheon.Core
             if (agents.Length != 2)
                 throw new ArgumentException("Exactly two instances of IAgent are required.", nameof(agents));
 
+            if (decks == null)
+                throw new ArgumentNullException(nameof(decks));
+
+            if (decks.Length != 2)
+                throw new ArgumentException("Exactly two instances of IDeck are required.", nameof(decks));
+
             stateFactory = factory;
             this.agents = agents;
             this.decks = decks;
