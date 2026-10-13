@@ -5,7 +5,7 @@ using Pantheon.Core.Cards;
 
 namespace Pantheon.Core
 {
-    public class Deck : IDeck
+    public class Deck
     {
         public const int DeckSize = 30;
         private readonly List<CardDefinition> cards;
@@ -22,7 +22,7 @@ namespace Pantheon.Core
             this.cards = new List<CardDefinition>(cards);
         }
 
-        public static IDeck TestDeck()
+        public static Deck TestDeck()
         {
             return new Deck(Enumerable.Repeat(CardCatalog.Hoplite, DeckSize).ToList());
         }

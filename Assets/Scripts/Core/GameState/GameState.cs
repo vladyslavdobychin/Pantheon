@@ -3,23 +3,32 @@ using System.Collections.Generic;
 
 namespace Pantheon.Core
 {
-    public class GameState : IGameState
+    public class GameState
     {
-        private readonly IAgent[] agents;
-        private readonly IDeck[] decks;
-        private readonly Random random;
-        private readonly int currentAgentIndex;
+        private readonly Player[] players = new Player[2];
+        private readonly RNG rng;
+        private readonly PlayerSlot currentPlayer;
 
-        public GameState(IAgent[] agents, IDeck[] decks, int seed)
+        public GameState(Player playerA, Player playerB, int seed)
         {
-            this.agents = agents;
-            this.decks = decks;
-            this.random = new Random(seed);
-            this.currentAgentIndex = this.random.Next(2);
+            if (playerA == null)
+                throw new ArgumentNullException(nameof(playerA));
+
+            if (playerB == null)
+                throw new ArgumentNullException(nameof(playerB));
+
+            if (playerA.Slot == playerB.Slot)
+                throw new ArgumentException("Both players must have different slots", nameof(playerB));
+
+            players[(int)playerA.Slot] = playerA;
+            players[(int)playerB.Slot] = playerB;
+
+            rng = new RNG(seed);
+            currentPlayer = (PlayerSlot) rng.Next(2);
 
             /*
             [X] Initialize player indexes
-            [X] Initialize decks
+            [X] Initialize Players with decks
             [ ] Initialize board
             */
         }
@@ -30,9 +39,9 @@ namespace Pantheon.Core
             return false;
         }
 
-        public int GetCurrentAgentIndex()
+        public PlayerSlot GetCurrentPlayer()
         {
-            return currentAgentIndex;
+            return currentPlayer;
         }
 
         public List<GameEvent> ApplyMove(IMove move)

@@ -2,9 +2,13 @@ namespace Pantheon.Core
 {
     public class GameStateFactory
     {
-        public IGameState Create(IAgent[] agents, IDeck[] decks, int seed)
+        public GameState Create(GameSetup setup)
         {
-            return new GameState(agents, decks, seed);
+            return new GameState(
+                playerA: new Player(PlayerSlot.First, setup.GetPlayerSetup(PlayerSlot.First).Deck),
+                playerB: new Player(PlayerSlot.Second, setup.GetPlayerSetup(PlayerSlot.Second).Deck),
+                seed: setup.Seed
+            );
         }
     }
 }

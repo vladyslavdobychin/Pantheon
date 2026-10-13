@@ -11,6 +11,6 @@ namespace Pantheon.Core
 
         }
 
-        public Task<IMove> DecideAsync(IGameState gameState) => Task.FromResult<IMove>(null);
+        public Task<IMove> DecideAsync(GameState gameState) => Task.FromResult<IMove>(null);
     }
 }
