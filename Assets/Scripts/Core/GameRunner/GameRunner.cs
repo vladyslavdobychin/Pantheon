@@ -31,7 +31,7 @@ namespace Pantheon.Core
             while (!gameState.HasWinner())
             {
                 var agent = setup.GetPlayerSetup(gameState.GetCurrentPlayer()).Agent;
-                // var move = await currentAgent.DecideAsync(GameState);
+                var move = await agent.DecideAsync(gameState);
                 // var events = GameState.ApplyMove(move);
 
                 // TODO: Return events to view

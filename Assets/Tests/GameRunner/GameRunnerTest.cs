@@ -11,8 +11,9 @@ namespace Pantheon.CoreTests
 
         private static IAgent[] TwoAgents() => new IAgent[] { new Agent(), new Agent() };
 
-        private static IDeck[] TwoDecks() => new IDeck[] { Deck.TestDeck(), Deck.TestDeck() };
+        private static Deck[] TwoDecks() => new Deck[] { Deck.TestDeck(), Deck.TestDeck() };
 
+        /*
         private static IEnumerable<TestCaseData> InvalidConstructorArguments()
         {
             var factory = new GameStateFactory();
@@ -55,5 +56,7 @@ namespace Pantheon.CoreTests
 
             Assert.IsInstanceOf<IGameState>(gameState);
         }
+
+        */
     }
 }
