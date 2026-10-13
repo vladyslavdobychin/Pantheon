@@ -6,7 +6,7 @@ namespace Pantheon.Core
     public class GameState
     {
         private readonly Player[] players = new Player[2];
-        private readonly RNG rng;
+        private readonly Rng rng;
         private readonly PlayerSlot currentPlayer;
 
         public GameState(Player playerA, Player playerB, int seed)
@@ -23,13 +23,13 @@ namespace Pantheon.Core
             players[(int)playerA.Slot] = playerA;
             players[(int)playerB.Slot] = playerB;
 
-            rng = new RNG(seed);
+            rng = new Rng(seed);
             currentPlayer = (PlayerSlot) rng.Next(2);
 
             /*
             [X] Initialize player indexes
             [X] Initialize Players with decks
-            [ ] Initialize board
+            [X] Initialize board
             */
         }
 

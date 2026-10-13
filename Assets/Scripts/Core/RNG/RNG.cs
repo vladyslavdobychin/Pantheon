@@ -2,17 +2,20 @@ using System;
 
 namespace Pantheon.Core
 {
-    public class RNG
+    public class Rng
     {
         private readonly Random random;
-        public RNG(int seed)
+        public Rng(int seed)
         {
             random = new Random(seed);
         }
 
-        public int Next(int value)
+        // <summary>
+        // Provides a random number between `0` and `exclusiveMax - 1`
+        // </summary>
+        public int Next(int exclusiveMax)
         {
-            return random.Next(value);
+            return random.Next(exclusiveMax);
         }
     }
 }
