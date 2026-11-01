@@ -7,8 +7,7 @@ namespace Pantheon.Core
     {
         private readonly Player[] players = new Player[2];
         private readonly Rng rng;
-        private readonly PlayerSlot currentPlayer;
-        private readonly Board board;
+        private PlayerSlot currentPlayer;
 
         public GameState(Player playerA, Player playerB, int seed)
         {
@@ -26,12 +25,11 @@ namespace Pantheon.Core
 
             rng = new Rng(seed);
             currentPlayer = (PlayerSlot) rng.Next(2);
-            board = new Board();
 
             /*
             [X] Initialize player indexes
             [X] Initialize Players with decks
-            [X] Initialize board
+            [ ] Initialize board
             */
         }
 
@@ -49,6 +47,11 @@ namespace Pantheon.Core
         public List<GameEvent> ApplyMove(IMove move)
         {
             return new List<GameEvent>();
+        }
+
+        public void EndTurn()
+        {
+            currentPlayer = currentPlayer.Opponent();
         }
     }
 }

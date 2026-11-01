@@ -7,17 +7,22 @@ namespace Pantheon.Core
     public class PlayerHand
     {
         public const int HandSize = 10;
-        private readonly List<CardDefinition> cards;
+        private readonly List<CardInstance> cards;
 
-        public PlayerHand(IReadOnlyList<CardDefinition>cards)
+        public PlayerHand() : this(Array.Empty<CardInstance>())
         {
-            // Hand can be empty
-
-            if (cards.Count > HandSize)
-                throw new ArgumentOutOfRangeException($"Hand must contain not more than {HandSize} cards.", nameof(cards));
-
-            this.cards = new List<CardDefinition>(cards);
         }
 
+        public PlayerHand(IReadOnlyList<CardInstance> cards)
+        {
+            if (cards == null)
+                throw new ArgumentNullException(nameof(cards));
+
+            this.cards = new List<CardInstance>(cards);
+        }
+
+        public int Count => cards.Count;
+
+        public IReadOnlyList<CardInstance> Cards => cards;
     }
 }
