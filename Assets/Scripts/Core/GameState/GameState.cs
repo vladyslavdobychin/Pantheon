@@ -44,7 +44,7 @@ namespace Pantheon.Core
             return currentPlayer;
         }
 
-        public List<GameEvent> ApplyMove(IMove move)
+        public List<GameEvent> ApplyMove(Move move)
         {
             return new List<GameEvent>();
         }

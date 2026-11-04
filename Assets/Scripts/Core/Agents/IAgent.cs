@@ -4,6 +4,6 @@ namespace Pantheon.Core
 {
     public interface IAgent
     {
-        Task<IMove> DecideAsync(GameState gameState);
+        Task<Move> DecideAsync(GameState gameState);
     }
 }
