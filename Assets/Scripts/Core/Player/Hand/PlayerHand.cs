@@ -7,6 +7,7 @@ namespace Pantheon.Core
     public class PlayerHand
     {
         public const int HandSize = 10;
+
         private readonly List<CardInstance> cards;
 
         public PlayerHand() : this(Array.Empty<CardInstance>())
@@ -23,6 +24,19 @@ namespace Pantheon.Core
 
         public int Count => cards.Count;
 
+        public bool IsFull => cards.Count >= HandSize;
+
         public IReadOnlyList<CardInstance> Cards => cards;
+
+        internal void Add(CardInstance card)
+        {
+            if (card == null)
+                throw new ArgumentNullException(nameof(card));
+
+            if (IsFull)
+                throw new InvalidOperationException("Cannot add a card to a full hand.");
+
+            cards.Add(card);
+        }
     }
 }

@@ -1,30 +1,39 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Pantheon.Core.Cards;
 
 namespace Pantheon.Core
 {
+    /// <summary>
+    /// Runtime draw pile: shuffled, shrinking, holds CardInstance. Built from a DeckDefinition
+    /// by GameState so the shuffle uses the seeded Rng.
+    /// </summary>
     public class Deck
     {
-        public const int DeckSize = 30;
-        private readonly List<CardDefinition> cards;
+        private readonly List<CardInstance> cards;
 
-        public Deck(IReadOnlyList<CardDefinition> cards)
+        public Deck(IReadOnlyList<CardInstance> cards)
         {
-            // TODO: Add max 2 identical cards rule
             if (cards == null)
                 throw new ArgumentNullException(nameof(cards));
 
-            if (cards.Count != DeckSize)
-                throw new ArgumentException($"Deck must contain exactly {DeckSize} cards.", nameof(cards));
-
-            this.cards = new List<CardDefinition>(cards);
+            this.cards = new List<CardInstance>(cards);
         }
 
-        public static Deck TestDeck()
+        public int Count => cards.Count;
+
+        public bool IsEmpty => cards.Count == 0;
+
+        internal CardInstance Draw()
         {
-            return new Deck(Enumerable.Repeat(CardCatalog.Hoplite, DeckSize).ToList());
+            if (IsEmpty)
+                throw new InvalidOperationException("Cannot draw from an empty deck.");
+
+            var index = cards.Count - 1;
+            var card = cards[index];
+            cards.RemoveAt(index);
+
+            return card;
         }
     }
 }

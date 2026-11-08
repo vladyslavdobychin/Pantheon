@@ -9,9 +9,9 @@ namespace Pantheon.CoreTests
     {
         private const int Seed = 123;
 
-        private static IAgent[] TwoAgents() => new IAgent[] { new Agent(), new Agent() };
+        private static IAgent[] TwoAgents() => new IAgent[] { new Agent(new MoveGenerator()), new Agent(new MoveGenerator()) };
 
-        private static Deck[] TwoDecks() => new Deck[] { Deck.TestDeck(), Deck.TestDeck() };
+        private static DeckDefinition[] TwoDecks() => new DeckDefinition[] { DeckDefinition.TestDeck(), DeckDefinition.TestDeck() };
 
         /*
         private static IEnumerable<TestCaseData> InvalidConstructorArguments()
