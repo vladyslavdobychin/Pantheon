@@ -5,12 +5,17 @@ using Pantheon.Core.Cards;
 
 namespace Pantheon.Core
 {
-    public class Deck : IDeck
+    /// <summary>
+    /// Immutable blueprint: the list a player built before the match. Never mutated during play.
+    /// Mirrors CardDefinition / CardInstance — the runtime counterpart is Deck.
+    /// </summary>
+    public class DeckDefinition
     {
         public const int DeckSize = 30;
+
         private readonly List<CardDefinition> cards;
 
-        public Deck(IReadOnlyList<CardDefinition> cards)
+        public DeckDefinition(IReadOnlyList<CardDefinition> cards)
         {
             // TODO: Add max 2 identical cards rule
             if (cards == null)
@@ -22,9 +27,11 @@ namespace Pantheon.Core
             this.cards = new List<CardDefinition>(cards);
         }
 
-        public static IDeck TestDeck()
+        public IReadOnlyList<CardDefinition> Cards => cards;
+
+        public static DeckDefinition TestDeck()
         {
-            return new Deck(Enumerable.Repeat(CardCatalog.Hoplite, DeckSize).ToList());
+            return new DeckDefinition(Enumerable.Repeat(CardCatalog.Hoplite, DeckSize).ToList());
         }
     }
 }

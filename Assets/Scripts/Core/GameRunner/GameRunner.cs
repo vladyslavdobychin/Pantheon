@@ -1,47 +1,71 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pantheon.Core
 {
-    public class GameRunner : IGameRunner
+    /// <summary>
+    /// Loop glue, nothing else: ask the current agent for a move, hand it to the engine, push the
+    /// events out, repeat until someone wins. Rules live in GameEngine and below.
+    /// </summary>
+    public class GameRunner
     {
-        private GameStateFactory stateFactory;
-        private IGameState gameState;
-        private IAgent[] agents;
+        /// <summary>Safety valve: a stalled board or a rules bug fails loudly instead of hanging.</summary>
+        public const int MaxTurns = 1000;
 
-        public GameRunner(GameStateFactory factory, IAgent[] agents)
+        private readonly GameStateFactory stateFactory;
+        private readonly GameEngine engine;
+        private readonly GameSetup setup;
+
+        private GameState gameState;
+
+        public GameRunner(GameStateFactory factory, GameEngine engine, GameSetup setup)
         {
             if (factory == null)
                 throw new ArgumentNullException(nameof(factory));
 
-            if (agents == null)
-                throw new ArgumentNullException(nameof(agents));
+            if (engine == null)
+                throw new ArgumentNullException(nameof(engine));
 
-            if (agents.Length != 2)
-                throw new ArgumentException("Exactly two instances of IAgent are required.", nameof(agents));
+            if (setup == null)
+                throw new ArgumentNullException(nameof(setup));
 
             stateFactory = factory;
-            this.agents = agents;
+            this.engine = engine;
+            this.setup = setup;
         }
 
-        public IGameState Initialise()
+        public GameState Initialise()
         {
-            return gameState = stateFactory.Create(agents);
+            return gameState = stateFactory.Create(setup);
         }
 
-        public async Task<IGameState> RunAsync()
+        public async Task<GameResult> RunAsync()
         {
-            while (!gameState.HasWinner())
+            if (gameState == null)
+                throw new InvalidOperationException("Initialise must be called before RunAsync.");
+
+            Dispatch(engine.StartGame(gameState));
+
+            while (!engine.IsOver(gameState))
             {
-                var currentAgent = agents[gameState.GetCurrentAgentIndex()];
-                var move = await currentAgent.DecideAsync(gameState);
-                var events = gameState.ApplyMove(move);
+                if (gameState.TurnNumber > MaxTurns)
+                    throw new InvalidOperationException(
+                        $"Game exceeded {MaxTurns} turns without finishing."
+                    );
 
-                // TODO: Return events to view
+                var agent = setup.GetPlayerSetup(gameState.GetCurrentPlayer()).Agent;
+                var move = await agent.DecideAsync(gameState);
+
+                Dispatch(engine.Apply(gameState, move));
             }
 
-            return gameState;
+            return engine.GetResult(gameState);
+        }
+
+        private void Dispatch(List<GameEvent> events)
+        {
+            // TODO: hand events to the view / per-recipient filter for netcode.
         }
     }
-
 }
