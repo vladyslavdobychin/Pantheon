@@ -9,7 +9,13 @@ namespace Pantheon.CoreTests
     {
         private const int Seed = 123;
 
-        private static IAgent[] TwoAgents() => new IAgent[] { new Agent(new MoveGenerator()), new Agent(new MoveGenerator()) };
+        private static GameEngine Engine()
+        {
+            var generator = new MoveGenerator();
+            return new GameEngine(generator, new MoveResolver(generator, new Effects()), new GameRules());
+        }
+
+        private static IAgent[] TwoAgents() => new IAgent[] { new Agent(Engine()), new Agent(Engine()) };
 
         private static DeckDefinition[] TwoDecks() => new DeckDefinition[] { DeckDefinition.TestDeck(), DeckDefinition.TestDeck() };
 

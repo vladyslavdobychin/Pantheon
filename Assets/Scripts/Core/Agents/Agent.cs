@@ -6,22 +6,24 @@ namespace Pantheon.Core
     /// <summary>
     /// Placeholder brain: always takes the first legal move. Returns a completed task,
     /// keeping the async seam free of real waiting.
+    ///
+    /// Reads the board through GameEngine, the same front door a remote client would use.
     /// </summary>
     public class Agent : IAgent
     {
-        private readonly MoveGenerator moveGenerator;
+        private readonly GameEngine engine;
 
-        public Agent(MoveGenerator moveGenerator)
+        public Agent(GameEngine engine)
         {
-            if (moveGenerator == null)
-                throw new ArgumentNullException(nameof(moveGenerator));
+            if (engine == null)
+                throw new ArgumentNullException(nameof(engine));
 
-            this.moveGenerator = moveGenerator;
+            this.engine = engine;
         }
 
         public Task<Move> DecideAsync(GameState gameState)
         {
-            var moves = moveGenerator.GetValidMoves(gameState);
+            var moves = engine.GetValidMoves(gameState);
 
             if (moves.Count == 0)
                 throw new InvalidOperationException("No legal moves available.");
